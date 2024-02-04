@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  // Render the index view, passing in any necessary data
-  res.render('index', { isLoggedIn: req.isAuthenticated() });
+  const isLoggedIn = req.isAuthenticated ? req.isAuthenticated() : false;
+
+  res.render('index', { isLoggedIn: isLoggedIn, title: 'Home Page', message: 'Welcome to my website!' });
 });
 
 module.exports = router;

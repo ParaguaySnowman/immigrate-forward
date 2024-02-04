@@ -1,9 +1,7 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const passport = require('passport');
-const expressLayouts = require('express-ejs-layouts');
 require('dotenv').config(); // Load environment variables from .env file
 require('./db'); // Initializes MongoDB connection
 require('./passport-setup'); // Initialize Passport configuration
@@ -36,7 +34,6 @@ app.use((req, res, next) => {
 });
 
 // Body parser middleware
-app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Static files middleware
@@ -44,7 +41,6 @@ app.use(express.static('public'));
 
 // View engine setup
 app.set('view engine', 'ejs');
-app.use(expressLayouts);
 
 // Routes
 const routes = require('./routes/routes');
@@ -63,14 +59,6 @@ app.get('/auth/google/callback',
     // Successful authentication, redirect home.
     res.redirect('/');
   });
-
-app.get('/', (req, res) => {
-  if (req.isAuthenticated()) {
-    res.send('<a href="/logout">Logout</a>');
-  } else {
-    res.send('<a href="/auth/google">Sign In with Google</a>');
-  }
-});
 
 app.get('/logout', (req, res) => {
   req.logout((err) => {
