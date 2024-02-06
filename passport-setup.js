@@ -1,10 +1,11 @@
 const passport = require('passport');
+require('dotenv').config();
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('./models/user.model.js'); // Assuming you have a User model set up with Mongoose
 
 passport.use(new GoogleStrategy({
-    clientID: "882837302688-cd01k100cqlil3fgc4t7oo4v4q543avp.apps.googleusercontent.com",
-    clientSecret: "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",
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "/auth/google/callback"
   },
   async function(accessToken, refreshToken, profile, cb) {

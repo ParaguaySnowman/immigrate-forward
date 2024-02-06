@@ -27,12 +27,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Middleware function to set isLoggedIn
-app.use((req, res, next) => {
-  res.locals.isLoggedIn = req.isAuthenticated() || false;
-  next();
-});
-
 // Body parser middleware
 app.use(express.urlencoded({ extended: true }));
 
@@ -54,7 +48,7 @@ app.get('/auth/google',
   }));
 
 app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/login' }),
+  passport.authenticate('google', { failureRedirect: '/' }),
   (req, res) => {
     // Successful authentication, redirect home.
     res.redirect('/');
