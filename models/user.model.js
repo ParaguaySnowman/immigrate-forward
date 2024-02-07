@@ -1,9 +1,52 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  googleId: String,
+  googleId: {
+    type: String,
+    default: null,
+  },
+  firstName: String,
+  lastName: String,
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  countryOfOrigin: String,
+  yearOfBirth: Number,
+  subscriptionStatus: {
+    type: Boolean,
+    default: false,
+  },
+  phone: {
+    phoneNumber: String,
+    verified: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  smsPreferences: {
+    optIn: {
+      type: Boolean,
+      default: false,
+    },
+    lastMessageDate: {
+      type: Date,
+      default: null,
+    },
+    preferredLanguage: {
+      type: String,
+      default: null,
+    },
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-const User = mongoose.model('User', userSchema);
-
-module.exports = User;
+module.exports = mongoose.model('User', userSchema);

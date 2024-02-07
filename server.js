@@ -3,8 +3,8 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const passport = require('passport');
 require('dotenv').config(); // Load environment variables from .env file
-require('./db'); // Initializes MongoDB connection
-require('./passport-setup'); // Initialize Passport configuration
+require('./config/db'); // Initializes MongoDB connection
+require('./config/passport-setup'); // Initialize Passport configuration
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -37,29 +37,18 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
 // Routes
-const routes = require('./routes/routes');
-app.use('/', routes);
+const authRoutes = require('./routes/authRoutes');
+const registrationCompletedRoutes = require('./routes/registrationCompletedRoutes')
+const mainRoutes = require('./routes/mainRoutes');
+app.use('/', authRoutes);
+app.use('/', mainRoutes);
+app.use('/', registrationCompletedRoutes)
 
-// Google Auth routes
-app.get('/auth/google',
-  passport.authenticate('google', { 
-    scope: ['profile', 'email'],
-    prompt: 'select_account' // Forces account selection every time
-  }));
-
-app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/' }),
-  (req, res) => {
-    // Successful authentication, redirect home.
-    res.redirect('/');
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something went wrong!');
   });
-
-app.get('/logout', (req, res) => {
-  req.logout((err) => {
-    if (err) { return next(err); }
-    res.redirect('/');
-  });
-});
 
 // Server initialization
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
