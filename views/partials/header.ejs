@@ -14,9 +14,9 @@
             <a href="content.html" id="contentLink" data-lang-placeholder="contentLink"></a>
             <a href="search.html" id="searchLink" data-lang-placeholder="searchLink"></a>
             <a href="language.html" id="languageLink" data-lang-placeholder="languageLink"></a>
-            <a href="user.html" id="userLink" data-lang-placeholder="userLink"></a>
             <% if (locals.isLoggedIn) { %>
                 <a href="/logout" id="logoutLink">Logout</a>
+                <a href="user.html" id="userLink" data-lang-placeholder="userLink"></a>
             <% } else { %>
                 <a href="/auth/google" id="loginLink">Sign In with Google</a>
             <% } %>

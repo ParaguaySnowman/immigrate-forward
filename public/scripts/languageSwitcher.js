@@ -10,7 +10,7 @@ function loadContent(lang) {
             'searchLink':'Search',
             'signInLink': 'Sign In',
             'signUpLink': 'Register',
-            'userLink': 'User'
+            'userLink': 'My Account'
             // ... other keys
         },
         'es': {
@@ -23,7 +23,7 @@ function loadContent(lang) {
             'searchLink':'Buscar',
             'signInLink': 'Iniciar Sesión', 
             'signUpLink': 'Registrarse',
-            'userLink': 'Usuario'
+            'userLink': 'Mi Cuenta'
             // ... other keys
         }
     };

@@ -20,6 +20,7 @@ passport.use(new GoogleStrategy(
           firstName: profile.name.givenName,
           lastName: profile.name.familyName,
           email: profile.emails[0].value,
+          isRegistrationComplete: false,
           // You can extract other fields from the Google profile here
         });
 

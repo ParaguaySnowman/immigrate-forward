@@ -13,16 +13,15 @@ router.get('/auth/google',
   passport.authenticate('google', { failureRedirect: '/' }),
   async (req, res) => {
     try {
-      // Check if the user was just created
-      const isNewUser = req.user.createdAt.toString() === req.user.updatedAt.toString();
 
-      if (isNewUser) {
-        // Redirect the user to the registration page
-        return res.redirect('/register');
+      // Check if registration was previously completed
+      if (req.user.isRegistrationComplete) {
+        // Redirect the user to the homepage
+        return res.redirect('/');
       }
 
-      // Redirect the user to the main page or any other route as needed
-      return res.redirect('/');
+      // Redirect the user to the registration page
+      return res.redirect('/register');
     } catch (error) {
       console.error('Error in authentication callback:', error);
       // Handle the error appropriately

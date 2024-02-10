@@ -17,6 +17,9 @@ const completeRegistration = async (req, res) => {
       user.smsPreferences.optIn = optIn === 'on';
       user.smsPreferences.preferredLanguage = preferredLanguage;
   
+      //Mark registration as complete in user record
+      user.isRegistrationComplete = true;
+      
       // Save the updated user profile
       await user.save();
   

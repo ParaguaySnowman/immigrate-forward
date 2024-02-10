@@ -38,11 +38,9 @@ app.set('view engine', 'ejs');
 
 // Routes
 const authRoutes = require('./routes/authRoutes');
-const registrationCompletedRoutes = require('./routes/registrationCompletedRoutes')
 const mainRoutes = require('./routes/mainRoutes');
 app.use('/', authRoutes);
 app.use('/', mainRoutes);
-app.use('/', registrationCompletedRoutes)
 
 // Error handling middleware
 app.use((err, req, res, next) => {
