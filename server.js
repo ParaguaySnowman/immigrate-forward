@@ -36,11 +36,16 @@ app.use(express.static('public'));
 // View engine setup
 app.set('view engine', 'ejs');
 
+// Route-proctection middleware
+const requireRegistration = require('./middleware/requireRegistration'); // Assuming authMiddleware.js is in the same directory
+
 // Routes
 const authRoutes = require('./routes/authRoutes');
 const mainRoutes = require('./routes/mainRoutes');
+const userRoutes = require('./routes/userRoutes');
 app.use('/', authRoutes);
 app.use('/', mainRoutes);
+app.use('/user', requireRegistration, userRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
