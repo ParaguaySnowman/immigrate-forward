@@ -32,6 +32,38 @@ const completeRegistration = async (req, res) => {
     }
 };
 
+const updateProfile = async (req, res) => {
+  try {
+    const { firstName, lastName, countryOfOrigin, yearOfBirth, phoneNumber, optIn, preferredLanguage } = req.body;
+
+    // Basic validation example
+    if (!firstName || !lastName) {
+      throw new Error('First name and last name are required.');
+    }
+
+    // Find the user 
+    const user = await User.findById(req.user._id); 
+
+    // Update user information
+    user.firstName = firstName;
+    user.lastName = lastName;
+    user.countryOfOrigin = countryOfOrigin;
+    user.yearOfBirth = yearOfBirth;
+    user.phone.phoneNumber = phoneNumber;
+    user.smsPreferences.optIn = optIn === 'on';
+    user.smsPreferences.preferredLanguage = preferredLanguage;
+
+    // Save the updated user 
+    const updatedUser = await user.save(); 
+
+    req.flash('success', 'Profile updated successfully!');
+    res.redirect('/user/myAccount');
+  } catch (error) {
+    console.error('Error updating profile:', error);
+    req.flash('error', 'An error occurred while updating your profile.');
+    res.redirect('/user/editProfile');
+  }
+};
 
 const dashboard = async (req, res) => {
   try {
@@ -57,5 +89,6 @@ const dashboard = async (req, res) => {
 // Export the completeRegistration function
 module.exports = {
     completeRegistration,
-    dashboard
+    dashboard,
+    updateProfile,
 };

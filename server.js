@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const passport = require('passport');
+const flash = require('connect-flash'); 
 require('dotenv').config(); // Load environment variables from .env file
 require('./config/db'); // Initializes MongoDB connection
 require('./config/passport-setup'); // Initialize Passport configuration
@@ -22,6 +23,9 @@ app.use(session({
     maxAge: 1000 * 60 * 60 * 24 // Cookie expiry (e.g., 1 day)
   }
 }));
+
+// Connect-flash middleware
+app.use(flash()); 
 
 // Passport middleware
 app.use(passport.initialize());
