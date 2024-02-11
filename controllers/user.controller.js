@@ -19,7 +19,7 @@ const completeRegistration = async (req, res) => {
   
       //Mark registration as complete in user record
       user.isRegistrationComplete = true;
-      
+
       // Save the updated user profile
       await user.save();
   
@@ -32,7 +32,30 @@ const completeRegistration = async (req, res) => {
     }
 };
 
+
+const dashboard = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+
+    if (!user) {
+      return res.status(404).send('User not found'); 
+    }
+
+    res.render('dashboard', { 
+      isLoggedIn: true, 
+      title: 'User Dashboard', 
+      message: 'Welcome to the user dashboard!', 
+      user // Pass the user data to the view
+    });
+
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
 // Export the completeRegistration function
 module.exports = {
-    completeRegistration
+    completeRegistration,
+    dashboard
 };

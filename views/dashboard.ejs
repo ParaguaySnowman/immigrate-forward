@@ -1,8 +1,15 @@
 <%- include('partials/header', { title: 'User Dashboard' }); %>
 
 <main>
-    <h2><%= message %></h2>
-    <p>This is the user dashboard area.</p>
+    <% if (isLoggedIn) { %>
+        <h1><%= message %></h1>
+        <h2>Your Profile</h2>
+        <p>First Name: <%= user.firstName %></p>
+        <p>Last Name: <%= user.lastName %></p>
+        <p>Email: <%= user.email %></p>
+        <% } else { %>
+        <p>Please log in to view your dashboard.</p>
+      <% } %>
 </main>
 
 <p data-lang-placeholder="about"></p>
