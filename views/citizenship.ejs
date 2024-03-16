@@ -1,0 +1,17 @@
+<%- include('partials/header', { title: 'Asylum' }); %>
+<h1>Citizenship Tutorials</h1>
+
+<div class="card-grid">
+    <% tutorials.forEach(tutorial => { %>
+      <% include '_card.ejs', { tutorial: tutorial } %>
+    <% }) %>
+  </div>
+  
+  <div id="mediaModal" class="modal">
+    <div class="modal-content"></div>
+    <span class="close-btn">&times;</span>
+  </div>
+  
+
+<%- include('partials/footer'); %>
+<script src="modalFetcher.js"></script> 

@@ -1,0 +1,8 @@
+<div class="card" data-media-url="<%= tutorial.media %>" data-media-type="<%= tutorial.mediaType %>">
+    <h2><%= tutorial.title %></h2>
+  
+    <% if (tutorial.mediaType === 'YouTube' || tutorial.mediaType === 'TikTok') { %>
+      <%= tutorial.videoUrl %> <% } else { %>
+      <img src="<%= tutorial.thumbnail.url %>" alt="<%= tutorial.title %> Thumbnail">
+    <% } %>
+  </div>
