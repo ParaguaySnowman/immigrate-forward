@@ -47,9 +47,22 @@ const requireRegistration = require('./middleware/requireRegistration'); // Assu
 const authRoutes = require('./routes/authRoutes');
 const mainRoutes = require('./routes/mainRoutes');
 const userRoutes = require('./routes/userRoutes');
+
+async function importContentRoutes() {
+  const { default: contentRoutes } = await import('./routes/contentRoutes'); 
+  // ... use contentRoutes ...
+  app.use('/content', requireRegistration, contentRoutes);
+}
+
 app.use('/', authRoutes);
 app.use('/', mainRoutes);
 app.use('/user', requireRegistration, userRoutes);
+
+
+
+// Call the function to import the module
+importContentRoutes();
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -59,3 +72,7 @@ app.use((err, req, res, next) => {
 
 // Server initialization
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
+// Dynamically import contentRoutes (after other routes are defined)
+importContentRoutes() 
+.catch(error => console.error('Error importing contentRoutes:', error)); 

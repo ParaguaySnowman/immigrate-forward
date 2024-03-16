@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.6.7",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^5.1.0",
     "dotenv": "^16.4.1",
@@ -23,6 +24,8 @@
     "nodemon": "^3.0.3",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
-    "sweetalert2": "^11.10.5"
+    "strapi-sdk-javascript": "^0.3.3",
+    "strapi-sdk-js": "^2.3.3",
+    "type": "module"
   }
 }
