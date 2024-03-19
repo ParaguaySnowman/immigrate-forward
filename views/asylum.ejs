@@ -1,0 +1,22 @@
+<%- include('partials/header', { title: 'Home Page' }); %>
+
+<main>
+    <div class="card-container">
+        <% for (const tutorial of tutorials) { %>
+          <% include 'partials/_card.ejs' data-tutorial="<%= tutorial %>" %> 
+        <% } %>
+      </div>
+
+      <div id="mediaModal" class="modal">
+        <div class="modal-content"></div>
+        <span class="close-btn">&times;</span>
+      </div>
+
+</main>
+
+<p data-lang-placeholder="about"></p>
+<p data-lang-placeholder="aboutText"></p>
+<script src="/scripts/languageSwitcher.js"></script>
+
+<%- include('partials/footer'); %>
+<script src="contentManager.js"></script>
