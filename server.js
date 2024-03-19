@@ -47,9 +47,11 @@ const requireRegistration = require('./middleware/requireRegistration'); // Assu
 const authRoutes = require('./routes/authRoutes');
 const mainRoutes = require('./routes/mainRoutes');
 const userRoutes = require('./routes/userRoutes');
+const contentRoutes = require('./routes/contentRoutes');
 app.use('/', authRoutes);
-app.use('/', mainRoutes);
+app.use('/', mainRoutes); 
 app.use('/user', requireRegistration, userRoutes);
+app.use('/content', requireRegistration, contentRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
